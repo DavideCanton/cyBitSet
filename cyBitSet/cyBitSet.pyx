@@ -2,6 +2,7 @@ from libc.stdlib cimport calloc, free
 from cpython cimport array
 from cython cimport boundscheck
 from array import array
+from collections import UserDict
 
 cdef extern from "Python.h":
     object PyByteArray_FromStringAndSize(char *string, int length)
@@ -162,7 +163,7 @@ cdef class PyBitSet:
                 if i == bsize - 1 and index >= size:
                     end = 1
                     break
-                cstr[size - index - 1] = <char>'0' + (val & 1)
+                cstr[size - index - 1] = <char>b'0' + (val & 1)
                 index += 1
                 val >>= 1
             if end:
